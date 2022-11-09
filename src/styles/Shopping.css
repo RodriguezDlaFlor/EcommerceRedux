@@ -1,0 +1,42 @@
+.js-cart-item-subtotal {
+    float: right;
+    margin: 10px;
+    margin-top: 15px;
+}
+.js-visible-on-cart-filled{
+    display: contents;
+}
+
+.js-modal-close {
+    color: black;
+}
+
+.small{
+   font-family: cursive;
+   color: #a933be;
+}
+
+.block {
+    background-color: black !important;
+}
+
+.btn-link{
+    color: black !important;
+}
+.envio{
+    color: #a933be;
+}
+
+.col-1 {
+    margin: 0px 20px 20px 220px
+}
+
+.btn-deleteproduct {
+    box-shadow: 0 1px 1px white, 0 0 8px  white;;
+    padding: 0px;
+    border-color: white !important;
+}
+
+.col-total{
+    color: #a933be;;
+}

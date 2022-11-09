@@ -1,0 +1,145 @@
+.form-group {
+    display: block;
+    width: 200px;
+
+}
+
+.boton-comprar
+{
+   
+    min-height: auto;
+    float: center;
+    text-align: right;
+    background-color:#a933be !important;
+    color: white !important;
+    margin: 5px 0px 5px 70px;
+    border-radius: 20px !important;
+}
+
+.material-symbols-outlined {
+ width: 10px;
+float: right;
+ 
+}
+
+.btn-X {
+    background-color:#a933be !important;
+    border-color: white !important;
+    color: white !important;
+}
+
+.btn-secondary{
+    background-color: #a933be  !important;
+    border-color: white !important;
+    color: white !important;
+    float: left;
+    width: 150px !important;
+    border-radius: 15px;
+}
+
+.boton-filtrar{
+    background-color:#a933be !important;
+    color: white !important;
+    padding: 0 !important;
+    margin: 50px 20px 20px 500px;
+}
+
+.icono-busqueda {
+   
+   color:#a933be !important;
+}
+.btn-Light {
+    color:#a933be !important;
+    align-items: center !important;
+    background-color: white !important;
+    border-color: white;
+
+}
+
+.btn-enviarform{
+    background-color:#a933be !important;
+    color: white !important;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+
+.swal2-icon.swal2-success {
+    border-color: #a933be  !important;
+    color:#a933be !important;
+}
+
+
+.swal2-icon.swal2-success [class^=swal2-success-line] {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    height: 0.3125em;
+    border-radius: 0.125em;
+    background-color: #a933be!important;
+
+}
+
+.swal2-success-ring {
+    border-color: #a933be !important;
+    color:#a933be !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #a933be !important;
+    box-shadow: 0 1px 1px #a933be inset, 0 0 8px  #a933be !important;
+}
+
+.swal2-icon.swal2-error {
+    border-color:#a933be!important;
+    color:#a933be !important;
+}
+
+.swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+    display: block;
+    position: absolute;
+    top: 2.3125em;
+    width: 2.9375em;
+    height: 0.3125em;
+    border-radius: 0.125em;
+    background-color: #a933be;
+}
+
+.btn-cerrar {
+color: white !important;
+background-color: #a933be !important;
+border-radius: 50px  !important;
+width: 40px;
+font-weight: 500 !important;
+border-color: white !important;
+float:right;
+ 
+}
+
+
+
+.element-amount {
+  color: #a933be !important;
+}
+
+.navbar-brand{
+    margin: 0px 30px 0px 30px;
+}
+
+.btn-group {
+    left: 350px;
+}
+
+.conteiner-fluid{
+    padding: 0px;
+}
+
+.link-carrito {
+    margin: 0px 800px;
+    
+}
+
+.btn-block{
+     background-color: black !important;
+     color: white !important;
+     border-color:  black !important;
+}
