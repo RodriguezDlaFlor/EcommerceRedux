@@ -134,7 +134,7 @@ float:right;
 }
 
 .link-carrito {
-    margin: 0px 800px;
+    margin: 0px 550px;
     
 }
 
@@ -142,4 +142,13 @@ float:right;
      background-color: black !important;
      color: white !important;
      border-color:  black !important;
+}
+
+.navbar-btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    padding: 0px;
+    font-size: 20px;
+    width: 150px;
 }

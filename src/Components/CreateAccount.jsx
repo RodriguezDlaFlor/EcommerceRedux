@@ -8,14 +8,22 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import app from "../Firebase"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import Swal from 'sweetalert2';
+const auth = getAuth(app)
 
-function Copyright(props) {
+
+
+function Copyright() {
     return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        <Typography variant="body2" color="text.secondary" align="center" >
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
                 Your Website
@@ -28,14 +36,33 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-function CreateAccount() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+function Account() {
+
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createUserWithEmailAndPassword(auth, email, password).then((app) => {
+            console.log(app)
+            if (app) {
+                Swal.fire({
+                    text: 'Cuenta creada con éxito!',
+                    icon: 'ok',
+                })
+                navigate('/')
+            }
+        }).catch(() => {
+            Swal.fire({
+                text: 'El email ingresado ya existe.',
+                icon: 'ok',
+            })
+        })
     };
 
     return (
@@ -51,7 +78,7 @@ function CreateAccount() {
                     }}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign up
@@ -61,12 +88,13 @@ function CreateAccount() {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="displayName"
                                     required
                                     fullWidth
-                                    id="firstName"
+                                    id="displaytName"
                                     label="First Name"
                                     autoFocus
+
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -87,6 +115,8 @@ function CreateAccount() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -98,6 +128,8 @@ function CreateAccount() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -112,6 +144,7 @@ function CreateAccount() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={handleSubmit}
                         >
                             Sign Up
                         </Button>
@@ -129,6 +162,4 @@ function CreateAccount() {
         </ThemeProvider>
     );
 }
-
-
-export default CreateAccount;
+export default Account;

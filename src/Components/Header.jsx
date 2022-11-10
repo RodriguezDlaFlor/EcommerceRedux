@@ -1,22 +1,49 @@
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Shopping from "./Shopping";
 
-function Header(props) {
+
+function Header() {
+  const userEmail = localStorage.getItem('userEmail')
+  const navigate = useNavigate()
+  const clearStorage = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
     <Fragment>
       <nav className="navbar navbar-dark bg-dark">
         <div className='btn-group'>
-          <Link to='/Inicio' className="navbar-brand" >
-            Inicio
-          </Link>
+
+
+
+          <button onClick={clearStorage} className="navbar-btn">Cerrar Sesión
+          </button>
+
+
+          <div className="navbar-brand user" >
+            <FontAwesomeIcon icon={faUser} />
+            {userEmail}
+          </div>
+
           <Link to='/Products' className="navbar-brand" >
             Productos
           </Link>
+          <Link to='/Form' className="navbar-brand" >
+            Nosotros
+          </Link>
 
-          <Shopping show={props.show} handleShow={props.handleShow} handleClose={props.handleClose} cart={props.cart}
-            setCart={props.setCart} article={props.articles} sizes={props.sizes}
-          />
+          <Link to='/Turnos' className="navbar-brand" >
+            Peluqueria
+          </Link>
+
+
+          <Shopping />
+
+
 
 
         </div>

@@ -41,7 +41,7 @@ form{
 
 .card {
     max-width: 300px !important;
-    margin: 30px 1px 10px 150px;
+    margin: 30px 1px 10px 75px;
 }
 .tarjeta {
     padding: 0px !important;
@@ -52,4 +52,9 @@ form{
 
 .d-flex {
     margin: 44px 200px 10px 750px;
+}
+
+h2{
+    margin: 50px;
+    text-align: center;
 }

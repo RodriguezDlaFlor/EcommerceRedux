@@ -3,11 +3,10 @@ import React, { Fragment, useState } from "react";
 import "../styles/Product.css";
 import "../styles/Shopping.css";
 import "../styles/Modal.css";
-
 import { Offcanvas, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, decreaseCart, deleteProduct, increaseCart } from "../Slices/SliceShopping";
+import { clearCart, decreaseCart, deleteProduct, finalizeCart, increaseCart } from "../Slices/SliceShopping";
 
 function Shopping() {
 
@@ -101,7 +100,7 @@ function Shopping() {
                             <button class="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(clearCart())}> Limpiar </button>
                         </div>
                         <div className="js-ajax-cart-submit row mb-3 display:none" id="ajax-cart-submit-div">
-                            <button class="btn btn-primary btn-block" type="button" name="go_to_checkout" > Comprar</button>
+                            <button class="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(finalizeCart())}> Comprar</button>
                         </div>
 
 
