@@ -30,9 +30,8 @@ function Form() {
     }
     return (
         <Fragment>
-            <Header />
             <div className="container mt-5">
-                <h1 className="form-contact">¡Completa nuestro formulario!<ion-icon name="h5ppy-outline"></ion-icon></h1>
+                <h1 className="form-contact"><ion-icon name="h5ppy-outline"></ion-icon></h1>
                 <form onSubmit={onSubmit} className="form-1">
                     <div className="cold-md-3">
                         <input

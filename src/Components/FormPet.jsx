@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDog } from '@fortawesome/free-solid-svg-icons'
-import Header from './Header';
-
+import { useNavigate } from "react-router-dom";
 
 function FormPet() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const findToken = localStorage.getItem('token');
+        if (!findToken) {
+            navigate('/');
+        }
+    }, []);
 
     const [datos, setDatos] = useState({
         nombreCompleto: '',
@@ -45,7 +52,6 @@ function FormPet() {
     }
     return (
         <Fragment>
-            <Header />
             <div className="container mt-5">
                 <div className='conteiner'>
                     <h1 className='form-contact'>

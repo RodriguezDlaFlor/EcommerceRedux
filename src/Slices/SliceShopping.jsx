@@ -3,8 +3,8 @@ import Swal from "sweetalert2";
 
 const initialState = {
     cart: localStorage.getItem('ItemsCart') ? JSON.parse(localStorage.getItem('ItemsCart')) : [],
-    cartTotalQuantity: 0,
-    cartTotalAmount: ''
+    cartTotalQuantity: 0
+
 }
 
 const SliceShopping = createSlice({
@@ -39,6 +39,7 @@ const SliceShopping = createSlice({
         },
         clearCart: (state) => {
             state.cart = [];
+            state.cartTotalQuantity = 0
             localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
         decreaseCart: (state, action) => {
@@ -62,8 +63,8 @@ const SliceShopping = createSlice({
                         icon: 'ok',
                     })
                 } else {
-                    state.cart[itemIndex].amount += 1
-                    localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
+                    state.cart[itemIndex].amount += 1 +
+                        localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
                 }
             }
         },
@@ -78,9 +79,18 @@ const SliceShopping = createSlice({
             })
             state.cart = [];
             localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
+        },
+        amountCart: (state) => {
+            const amount = state.cart.reduce((accumulator, element) => accumulator + parseInt(element.amount + element.amount), 0)
+            state.cart = { ...state.cart, amount }
+        },
+        cartTotal: (state) => {
+            const total = state.cart.reduce((accumulator, element) => accumulator + parseInt(element.price * element.amount), 0)
+            state.cartTotalQuantity = total
         }
+
     }
 })
 
 export default SliceShopping.reducer;
-export const { addToCart, deleteProduct, clearCart, decreaseCart, increaseCart, totalAmount, finalizeCart } = SliceShopping.actions;
+export const { addToCart, deleteProduct, clearCart, decreaseCart, increaseCart, cartTotal, finalizeCart, amountCart } = SliceShopping.actions;

@@ -1,28 +1,22 @@
 import React, { Fragment } from 'react';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-
 function Search({ setResults }) {
-
-
-
     const { allarticles } = useSelector(state => state.products)
-
     const onSubmit = (e) => {
         e.preventDefault()
     }
     const filterResults = ("keyup", function (e) {
-        let texto = e.target.value.toUpperCase()
+        let texto = e.target.value
         const name = texto.toUpperCase()
 
         if (texto !== '' && texto.length > 3) {
             const textShow = allarticles.filter((article) =>
                 article.name.includes(name))
             setResults(textShow)
+        } else {
+            setResults([])
         }
-
-
     }
     )
 

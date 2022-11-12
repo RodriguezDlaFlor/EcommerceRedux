@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 
 import React, { Fragment, useState } from "react";
 import "../styles/Product.css";
@@ -6,9 +7,9 @@ import "../styles/Modal.css";
 import { Offcanvas, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, decreaseCart, deleteProduct, finalizeCart, increaseCart } from "../Slices/SliceShopping";
+import { amountCart, cartTotal, clearCart, decreaseCart, deleteProduct, increaseCart } from "../Slices/SliceShopping";
 
-function Shopping() {
+function Shopping({ sizes }) {
 
     const dispach = useDispatch()
     const { cart } = useSelector(state => state.shopping)
@@ -18,14 +19,15 @@ function Shopping() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const total = cart.reduce((accumulator, element) => accumulator + parseInt(element.price * element.amount), 0)
+
+    const amount = cart.reduce((accumulator, element) => accumulator + parseInt(element.amount), 0)
 
     return (
 
         <Fragment>
 
             <Link type="button" className="navbar-brand link-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="my-button-id " onClick={handleShow}>
-                Mi Carrito {cart.length ? <small>{ }</small> : ''}
+                Mi Carrito {cart.length ? <small>{amount}</small> : ''}
             </Link>
 
             <Offcanvas show={show} size="lg" onHide={handleClose} backdrop="static"
@@ -41,8 +43,11 @@ function Shopping() {
                         <div className="js-cart-item cart-item form-row" id={key}>
 
                             <div className="cart-item-name">
-                                <small className="small">{element.name}</small>
+                                <small className="small">{element.name}</small> <small className="small">{element.sizes}</small>
 
+                            </div>
+                            <div class="col-2 {% if cart_page %}col-md-1{% endif %}">
+                                <img src={require(`../image/${element.image}`)} className="img-fluid" />
                             </div>
 
                             <div className="col-10">
@@ -60,7 +65,7 @@ function Shopping() {
                                     </button>
                                 </span>
                                 <button type="button" className="btn btn-deleteproduct" id={element.id}>
-                                    <span class="material-symbols-outlined" id={element.id} onClick={() => dispach(deleteProduct(element))}>
+                                    <span className="material-symbols-outlined" id={element.id} onClick={() => dispach(deleteProduct(element))}>
                                         Eliminar
                                     </span>
                                 </button>
@@ -73,7 +78,7 @@ function Shopping() {
 
                         </div>
                     )}</div>
-                        : <small >  El carrito de compras está vacío. </small>}
+                        : <small className="small-cart">  El carrito de compras está vacío. </small>}
 
                     {cart.length ? <div className="row  g-12">
 
@@ -84,7 +89,7 @@ function Shopping() {
                                 <small className="envio"> (sin envío)</small >
 
                             </span >
-                            <strong className="js-ajax-cart-total js-cart-subtotal {% if not cart_page %}col{% endif %} text-right">${total},00</strong>
+                            <strong className="js-ajax-cart-total js-cart-subtotal {% if not cart_page %}col{% endif %} text-right">${ },00</strong>
                         </h5 >
 
 
@@ -92,15 +97,15 @@ function Shopping() {
                         <Offcanvas.Body>
                             <div className="js-cart-total-container js-visible-on-cart-filled mb-3 display:none">
                                 <h2 className="{% if not cart_page %}row{% else %}text-right{% endif %} text-primary mb-0">
-                                    <span className="col-total">${total},00</span>
+                                    <span className="col-total">Total: ${ },00</span>
                                 </h2>
                             </div>
                         </Offcanvas.Body>
                         <div className="js-ajax-cart-submit row mb-3 display:none" id="ajax-cart-submit-div">
-                            <button class="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(clearCart())}> Limpiar </button>
+                            <button className="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(clearCart())}> Vaciar</button>
                         </div>
                         <div className="js-ajax-cart-submit row mb-3 display:none" id="ajax-cart-submit-div">
-                            <button class="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(finalizeCart())}> Comprar</button>
+                            <Link className="btn btn-primary btn-block" type="button" name="go_to_checkout" to='/Checkout' > Comprar</Link>
                         </div>
 
 

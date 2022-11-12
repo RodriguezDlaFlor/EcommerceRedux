@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Filter(props) {
+function Filter({ setFilter }) {
+    const { allarticles } = useSelector(state => state.products)
+
     const filterProducts = (e) => {
-        const producFiltr = props.cart.filter((product) =>
+        const producFiltr = allarticles.filter((product) =>
             product.category === e.target.value)
-        props.setfiltros(producFiltr)
+        setFilter(producFiltr)
     }
 
     return (
