@@ -6,7 +6,6 @@ const initialState = {
     cartTotalQuantity: 0
 
 }
-
 const SliceShopping = createSlice({
     name: 'shopping',
     initialState,
@@ -22,12 +21,44 @@ const SliceShopping = createSlice({
 
                     })
                 } else {
-                    state.cart[itemIndex].amount += 1;
+                    state.cart[itemIndex].amount += 1
+                    localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Agregando al carrito'
+                    })
                 }
             }
             else {
                 const temArticle = { ...action.payload, amount: 1 }
                 state.cart.push(temArticle);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Agregando al carrito'
+                })
             }
             localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
@@ -35,6 +66,21 @@ const SliceShopping = createSlice({
             const productDelete = state.cart.filter((item) =>
                 item.id !== action.payload.id)
             state.cart = productDelete
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 900,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'success',
+                title: 'Eliminando del carrito'
+            })
             localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
         clearCart: (state) => {
@@ -50,6 +96,21 @@ const SliceShopping = createSlice({
                 const productDecrease = state.cart.filter((item) =>
                     item.id !== action.payload.id)
                 state.cart = productDecrease
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 900,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Eliminando del carrito'
+                })
                 localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
             }
         },
@@ -61,14 +122,16 @@ const SliceShopping = createSlice({
                         title: 'Lo sentimos!',
                         text: 'No hay más stock',
                         icon: 'ok',
+
                     })
                 } else {
-                    state.cart[itemIndex].amount += 1 +
-                        localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
+                    state.cart[itemIndex].amount += 1
+                    localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
                 }
             }
         },
         finalizeCart: (state) => {
+
             const finalize = state.cart.map((item) => item.name + item.amount)
             const shoppingCompra = finalize.join('-') + '-' + 'Total $' + ',00'
             console.log(shoppingCompra)
@@ -88,7 +151,6 @@ const SliceShopping = createSlice({
             const total = state.cart.reduce((accumulator, element) => accumulator + parseInt(element.price * element.amount), 0)
             state.cartTotalQuantity = total
         }
-
     }
 })
 

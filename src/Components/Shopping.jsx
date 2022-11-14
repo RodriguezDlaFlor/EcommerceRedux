@@ -7,7 +7,7 @@ import "../styles/Modal.css";
 import { Offcanvas, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { amountCart, cartTotal, clearCart, decreaseCart, deleteProduct, increaseCart } from "../Slices/SliceShopping";
+import { clearCart, decreaseCart, deleteProduct, increaseCart } from "../Slices/SliceShopping";
 
 function Shopping({ sizes }) {
 
@@ -21,6 +21,7 @@ function Shopping({ sizes }) {
 
 
     const amount = cart.reduce((accumulator, element) => accumulator + parseInt(element.amount), 0)
+    const total = cart.reduce((accumulator, element) => accumulator + parseInt(element.price * element.amount), 0)
 
     return (
 
@@ -89,7 +90,7 @@ function Shopping({ sizes }) {
                                 <small className="envio"> (sin envío)</small >
 
                             </span >
-                            <strong className="js-ajax-cart-total js-cart-subtotal {% if not cart_page %}col{% endif %} text-right">${ },00</strong>
+                            <strong className="js-ajax-cart-total js-cart-subtotal {% if not cart_page %}col{% endif %} text-right">${total},00</strong>
                         </h5 >
 
 
@@ -97,7 +98,7 @@ function Shopping({ sizes }) {
                         <Offcanvas.Body>
                             <div className="js-cart-total-container js-visible-on-cart-filled mb-3 display:none">
                                 <h2 className="{% if not cart_page %}row{% else %}text-right{% endif %} text-primary mb-0">
-                                    <span className="col-total">Total: ${ },00</span>
+                                    <span className="col-total">Total: ${total},00</span>
                                 </h2>
                             </div>
                         </Offcanvas.Body>
@@ -105,7 +106,10 @@ function Shopping({ sizes }) {
                             <button className="btn btn-primary btn-block" type="button" name="go_to_checkout" onClick={() => dispach(clearCart())}> Vaciar</button>
                         </div>
                         <div className="js-ajax-cart-submit row mb-3 display:none" id="ajax-cart-submit-div">
-                            <Link className="btn btn-primary btn-block" type="button" name="go_to_checkout" to='/Checkout' > Comprar</Link>
+                            <Link variant="secondary" className="btn btn-primary btn-block" type="button" onClick={handleClose} to='/Checkout' >
+                                Comprar
+                            </Link>
+
                         </div>
 
 

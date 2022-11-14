@@ -1,39 +1,19 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import RitaDog from '../image/RitaDog.jpg';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import app from "../Firebase"
 import Swal from 'sweetalert2';
-import Header from './Header';
+
 const auth = getAuth(app)
-
-
-
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const theme = createTheme();
 
@@ -58,20 +38,21 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (email === '' || password === '') {
+            Swal.fire('Ingrese su email y contraseña')
+        } else {
+            signInWithEmailAndPassword(auth, email, password).then((resp) => {
+                console.log(resp)
+                if (resp)
+                    navigate('/Products')
+                const token = resp.user.accessToken
+                const getEmail = resp.user.email
+                localStorage.setItem('userEmail', getEmail)
+                localStorage.setItem('token', token)
+            }).catch(() =>
+                Swal.fire('Datos inválidos'))
+        }
 
-        signInWithEmailAndPassword(auth, email, password).then((resp) => {
-            console.log(resp)
-            if (resp)
-                navigate('/Products')
-            const token = resp.user.accessToken
-            const getEmail = resp.user.email
-            localStorage.setItem('userEmail', getEmail)
-            localStorage.setItem('token', token)
-        }).catch(() =>
-            Swal.fire({
-                text: 'Datos inválidos',
-                icon: 'ok',
-            }))
     };
     return (
         <>
@@ -103,12 +84,7 @@ function Login() {
                                 alignItems: 'center',
                             }}
                         >
-                            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
-                            </Avatar>
-                            <Typography component="h1" variant="h5">
-                                Sign in
-                            </Typography>
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
                                     margin="normal"
@@ -137,31 +113,25 @@ function Login() {
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                 />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
+
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
+                                    className="button-login"
                                 >
-                                    Sign In
+                                    Ingresar
                                 </Button>
                                 <Grid container>
-                                    <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid>
+
                                     <Grid item>
-                                        <Link to="/CreateAccount" variant="body2">
-                                            {"Don't have an account? Sign Up"}
+                                        <Link href="/CreateAccount" variant="body2">
+                                            {"No tienes cuenta? Registrate"}
                                         </Link>
                                     </Grid>
                                 </Grid>
-                                <Copyright sx={{ mt: 5 }} />
+
                             </Box>
                         </Box>
                     </Grid>

@@ -1,29 +1,24 @@
 
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../Slices/SliceShopping"
 import "../styles/Buttons.css";
-
-
 
 function Products({ article, setSizes, sizes }) {
 
     const dispach = useDispatch()
 
-
-    console.log(sizes)
-
     return (
         <Fragment>
             <div className="tarjeta" >
                 <div className="card text-bg-dark mb-3">
-                    <div className="card-header">{article.name}</div>
+                    <div className="card-header text-center">{article.name}</div>
                     <img
                         className="card-img-top"
                         src={require(`../image/${article.image}`)}
                         alt="imagen de bandeja" />
                     <div className="card-body">
-                        <h5 className="card-title">${article.price},00</h5>
+                        <h5 className="card-title text-center">${article.price},00</h5>
                         <p className="card-text"></p>
                         {article.size ?
                             <select

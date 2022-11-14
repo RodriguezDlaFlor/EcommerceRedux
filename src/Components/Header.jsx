@@ -7,6 +7,7 @@ import Shopping from "./Shopping";
 
 
 function Header({ results, setResults, sizes }) {
+  const tokenGet = localStorage.getItem('token')
   const userEmail = localStorage.getItem('userEmail')
   const navigate = useNavigate()
   const clearStorage = () => {
@@ -18,8 +19,8 @@ function Header({ results, setResults, sizes }) {
     <Fragment>
       <nav className="navbar navbar-dark bg-dark">
         <div className='btn-group'>
-          <button onClick={clearStorage} className="navbar-btn">Cerrar Sesión
-          </button>
+          {tokenGet ? < button onClick={clearStorage} className="navbar-btn">Cerrar Sesión
+          </button> : ''}
           <div className="navbar-brand user" >
             <FontAwesomeIcon icon={faUser} />
             {userEmail}
@@ -34,12 +35,12 @@ function Header({ results, setResults, sizes }) {
             Peluqueria
           </Link>
 
-          <Search setResults={setResults} results={results} />
+
 
           <Shopping sizes={sizes} />
         </div>
       </nav>
-    </Fragment>
+    </Fragment >
   )
 }
 export default Header;

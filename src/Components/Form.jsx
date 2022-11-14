@@ -20,7 +20,8 @@ function Form() {
         })
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         Swal.fire({
             title: 'Exito!',
             text: 'Formulario enviado!',
@@ -35,25 +36,27 @@ function Form() {
                 <form onSubmit={onSubmit} className="form-1">
                     <div className="cold-md-3">
                         <input
-
                             type="texto"
                             placeholder="Nombre Completo *"
                             className="form-control"
                             name="nombre"
                             onChange={InputChange}
                             value={datos.nombre}
+                            required
+                            minLength='3'
                         />
 
                     </div>
                     <div className="cold-md-3">
                         <input
-
                             type="email"
                             placeholder="Email *"
                             className="form-control"
                             name="email"
                             onChange={InputChange}
                             value={datos.email}
+                            required
+                            minLength='10'
                         />
 
                     </div>
@@ -65,6 +68,8 @@ function Form() {
                             name="direccion"
                             onChange={InputChange}
                             value={datos.direccion}
+                            required
+                            minLength='10'
                         />
                     </div>
                     <div className="cold-md-3">
@@ -98,6 +103,8 @@ function Form() {
                         onChange={InputChange}
                         name='sugerencia'
                         value={datos.sugerencia}
+                        required
+                        minLength='10'
                     >
                     </textarea>
                     <div className="cold-md-3">

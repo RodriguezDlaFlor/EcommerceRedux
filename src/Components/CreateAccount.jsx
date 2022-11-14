@@ -48,27 +48,39 @@ function Account() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, email, password).then((app) => {
-            console.log(app)
-            if (app) {
-                Swal.fire({
-                    text: 'Cuenta creada con éxito!',
-                    icon: 'ok',
-                })
-                navigate('/')
-            }
-        }).catch(() => {
+        if (email === '' || password === '') {
             Swal.fire({
-                text: 'El email ingresado ya existe.',
+                text: 'Debe ingresar un email y una contraseña',
                 icon: 'ok',
             })
-        })
+        } else {
+            createUserWithEmailAndPassword(auth, email, password).then((app) => {
+                console.log(app)
+                if (app) {
+                    Swal.fire({
+                        text: 'Cuenta creada con éxito!',
+                        icon: 'ok',
+                    })
+                    navigate('/')
+                }
+            }).catch(() => {
+                Swal.fire({
+                    text: 'El email ingresado ya existe.',
+                    icon: 'ok',
+                })
+            })
+        }
+
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
+
                 <CssBaseline />
+                <h2 clasName="text-center " component="h1" variant="h5">
+                    Crear Cuenta
+                </h2>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -77,23 +89,22 @@ function Account() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
 
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <br />
+
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
                                     name="displayName"
                                     required
+                                    minLenght='3'
                                     fullWidth
                                     id="displaytName"
                                     label="First Name"
                                     autoFocus
+
 
                                 />
                             </Grid>
@@ -151,15 +162,16 @@ function Account() {
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/" variant="body2">
-                                    Already have an account? Sign in
+                                    Ya tienes una cuenta? Iniciar sesión
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
+
             </Container>
-        </ThemeProvider>
+
+        </ThemeProvider >
     );
 }
 export default Account;

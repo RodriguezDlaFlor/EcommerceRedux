@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDog } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function FormPet() {
     const navigate = useNavigate()
@@ -32,24 +33,17 @@ function FormPet() {
             [e.target.name]: e.target.value
         })
     }
-    const Swal = require('sweetalert2')
-    const onSubmit = () => {
-        if (!datos.nombreCompleto.trim()) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Error, debe completar todos los campos',
-                icon: 'error',
-            })
-        } else {
-            console.log(datos)
-            Swal.fire({
-                title: 'Exito!',
-                text: 'Los datos fueron enviados correctamente. Pronto recibirá un Email con la fecha y horario de su turno (por favor revise su correo). ¡MUCHAS GRACIAS!',
-                icon: 'success',
-            })
-            setDatos({})
-        }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Exito!',
+            text: 'Los datos fueron enviados correctamente. Pronto recibirá un Email con la fecha y horario de su turno (por favor revise su correo). ¡MUCHAS GRACIAS!',
+            icon: 'success',
+        })
+        setDatos({})
     }
+
     return (
         <Fragment>
             <div className="container mt-5">
@@ -68,6 +62,8 @@ function FormPet() {
                             name="nombreCompleto"
                             onChange={InputChange}
                             value={datos.nombreCompleto}
+                            required
+                            minLength='4'
                         />
                     </div>
                     <div className="cold-md-3">
@@ -78,6 +74,8 @@ function FormPet() {
                             name="dni"
                             onChange={InputChange}
                             value={datos.dni}
+                            required
+                            minLength='8'
                         />
                     </div>
                     <div className="cold-md-3">
@@ -88,6 +86,7 @@ function FormPet() {
                             name="whatsapp"
                             onChange={InputChange}
                             value={datos.whatsapp}
+
                         />
                     </div>
                     <div className="cold-md-3">
@@ -112,6 +111,8 @@ function FormPet() {
                             name="nombreMascota"
                             onChange={InputChange}
                             value={datos.nombreMascota}
+                            required
+                            minLength='3'
                         />
                     </div>
                     <p>Sexo *</p>
@@ -121,6 +122,8 @@ function FormPet() {
                             name="sexo"
                             onChange={InputChange}
                             value={datos.sexo}
+                            required
+
                         >
                             <option value="value0">-</option>
                             <option value="En la tienda física">Hembra</option>
@@ -133,6 +136,7 @@ function FormPet() {
                             name="tamaño"
                             onChange={InputChange}
                             value={datos.tamaño}
+                            required
                         >
                             <option value="value0">-</option>
                             <option value="Pequeño">Pequeño</option>
@@ -161,6 +165,8 @@ function FormPet() {
                         onChange={InputChange}
                         name='observaciones'
                         value={datos.observaciones}
+                        required
+                        minLength='5'
                     >
                     </textarea>
                     <div className="cold-md-3">

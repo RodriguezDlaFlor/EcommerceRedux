@@ -1,6 +1,6 @@
 import Products from "./Components/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Provider, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Shopping from "./Components/Shopping";
 import Login from "./Components/Login";
 import CreateAccount from "./Components/CreateAccount";
@@ -8,12 +8,9 @@ import FormPet from "./Components/FormPet";
 import Form from "./Components/Form";
 import { useState } from "react";
 import Header from "./Components/Header";
-
-import AddressForm from "./Components/Checkout/AddressForm";
-import PaymentForm from "./Components/Checkout/PaymentForm";
 import Checkout from "./Components/Checkout/Checkout";
+import Footer from "./Components/Footer";
 import Review from "./Components/Checkout/Review";
-import store from "./store/store";
 
 function App() {
   const { allarticles } = useSelector((state) => state.products);
@@ -33,6 +30,8 @@ function App() {
       numberCard: "",
       dateCaducidad: "",
       cvv: "",
+      email: "",
+      cardtype: "",
     },
   ]);
 
@@ -80,9 +79,10 @@ function App() {
                 <Checkout checkout={checkout} setCheckout={setCheckout} />
               }
             />
-            <Route path="/AdressForm" element={<AddressForm />} />
-            <Route path="/PaymentForm" element={<PaymentForm />} />
-            <Route path="/Review" element={<Review />} />
+            <Route
+              path="/Review"
+              element={<Review checkout={checkout} setCheckout={setCheckout} />}
+            />
           </Routes>
         </div>
       </BrowserRouter>
