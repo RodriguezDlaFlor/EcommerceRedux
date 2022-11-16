@@ -14,9 +14,7 @@ import app from "../Firebase"
 import Swal from 'sweetalert2';
 
 const auth = getAuth(app)
-
 const theme = createTheme();
-
 
 function Login() {
 
@@ -27,14 +25,10 @@ function Login() {
         if (tokenGet) {
             navigate('/Products')
         }
-
     }, []);
-
-
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -51,12 +45,11 @@ function Login() {
                 localStorage.setItem('token', token)
             }).catch(() =>
                 Swal.fire('Datos inválidos'))
-        }
 
-    };
+        }
+    }
     return (
         <>
-
             <ThemeProvider theme={theme}>
                 <Grid container component="main" sx={{ height: '100vh' }}>
                     <CssBaseline />
@@ -84,7 +77,6 @@ function Login() {
                                 alignItems: 'center',
                             }}
                         >
-
                             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                                 <TextField
                                     margin="normal"
@@ -113,18 +105,15 @@ function Login() {
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                 />
-
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
-                                    className="button-login"
-                                >
+                                    className="button-login"                               >
                                     Ingresar
                                 </Button>
                                 <Grid container>
-
                                     <Grid item>
                                         <Link href="/CreateAccount" variant="body2">
                                             {"No tienes cuenta? Registrate"}

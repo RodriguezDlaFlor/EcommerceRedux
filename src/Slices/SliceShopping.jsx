@@ -18,7 +18,6 @@ const SliceShopping = createSlice({
                         title: 'Lo sentimos!',
                         text: 'No hay más stock',
                         icon: 'ok',
-
                     })
                 } else {
                     state.cart[itemIndex].amount += 1
@@ -27,14 +26,13 @@ const SliceShopping = createSlice({
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer: 900,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                             toast.addEventListener('mouseenter', Swal.stopTimer)
                             toast.addEventListener('mouseleave', Swal.resumeTimer)
                         }
                     })
-
                     Toast.fire({
                         icon: 'success',
                         title: 'Agregando al carrito'
@@ -48,7 +46,7 @@ const SliceShopping = createSlice({
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 1000,
+                    timer: 900,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -60,7 +58,6 @@ const SliceShopping = createSlice({
                     title: 'Agregando al carrito'
                 })
             }
-            localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
         deleteProduct: (state, action) => {
             const productDelete = state.cart.filter((item) =>
@@ -81,12 +78,10 @@ const SliceShopping = createSlice({
                 icon: 'success',
                 title: 'Eliminando del carrito'
             })
-            localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
         clearCart: (state) => {
             state.cart = [];
             state.cartTotalQuantity = 0
-            localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
         },
         decreaseCart: (state, action) => {
             const itemIndex = state.cart.findIndex(item => item.id === action.payload.id)
@@ -111,7 +106,6 @@ const SliceShopping = createSlice({
                     icon: 'success',
                     title: 'Eliminando del carrito'
                 })
-                localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
             }
         },
         increaseCart: (state, action) => {
@@ -126,22 +120,20 @@ const SliceShopping = createSlice({
                     })
                 } else {
                     state.cart[itemIndex].amount += 1
-                    localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
                 }
             }
         },
-        finalizeCart: (state) => {
+        finalizeCart: (state, action) => {
 
-            const finalize = state.cart.map((item) => item.name + item.amount)
-            const shoppingCompra = finalize.join('-') + '-' + 'Total $' + ',00'
-            console.log(shoppingCompra)
+            const finalize = state.cart.map((item) => 'nombre: ' + item.name + ' cantidad: ' + item.amount + ' precio: $ ' + item.price)
+            localStorage.setItem('compra', JSON.stringify(finalize))
             Swal.fire({
                 title: 'Exito!',
                 text: 'Compra finalizada!',
                 icon: 'success',
             })
             state.cart = [];
-            localStorage.setItem('ItemsCart', JSON.stringify(state.cart))
+
         },
         amountCart: (state) => {
             const amount = state.cart.reduce((accumulator, element) => accumulator + parseInt(element.amount + element.amount), 0)

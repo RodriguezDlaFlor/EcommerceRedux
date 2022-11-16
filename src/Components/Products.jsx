@@ -1,8 +1,9 @@
-
 import { Fragment } from "react"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../Slices/SliceShopping"
 import "../styles/Buttons.css";
+import Search from "./Search";
+
 
 function Products({ article, setSizes, sizes }) {
 
@@ -10,6 +11,7 @@ function Products({ article, setSizes, sizes }) {
 
     return (
         <Fragment>
+
             <div className="tarjeta" >
                 <div className="card text-bg-dark mb-3">
                     <div className="card-header text-center">{article.name}</div>
@@ -20,18 +22,6 @@ function Products({ article, setSizes, sizes }) {
                     <div className="card-body">
                         <h5 className="card-title text-center">${article.price},00</h5>
                         <p className="card-text"></p>
-                        {article.size ?
-                            <select
-                                className="form-control"
-                                name="size"
-                                id={article.id}
-                                onChange={e => setSizes(...sizes, e.target.value)}
-                            >
-                                <option value="Color">Talle</option>
-                                <option value="S">{article.size[0]}</option>
-                                <option value="M">{article.size[1]}</option>
-                                <option value="G">{article.size[2]}</option>
-                            </select> : ''}
                         <button
                             onClick={(e) => dispach(addToCart(article, e))}
                             className='btn boton-comprar'

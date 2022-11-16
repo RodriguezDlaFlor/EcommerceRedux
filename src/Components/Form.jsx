@@ -1,17 +1,14 @@
 import React, { Fragment, useState } from "react";
 import Swal from "sweetalert2";
-import Header from "./Header";
 
 
 function Form() {
-
     const [datos, setDatos] = useState({
         nombre: '',
         direccion: '',
         provincia: '',
         email: '',
-        select: '-',
-        sugerencia: ''
+        consulta: ''
     })
     const InputChange = (e) => {
         setDatos({
@@ -26,13 +23,15 @@ function Form() {
             title: 'Exito!',
             text: 'Formulario enviado!',
             icon: 'success',
+
         })
+        localStorage.setItem('dataContact', JSON.stringify(datos))
         setDatos({})
     }
     return (
         <Fragment>
             <div className="container mt-5">
-                <h1 className="form-contact"><ion-icon name="h5ppy-outline"></ion-icon></h1>
+                <h1 className="form-contact text-center">Contacto<ion-icon name="h5ppy-outline"></ion-icon></h1>
                 <form onSubmit={onSubmit} className="form-1">
                     <div className="cold-md-3">
                         <input
@@ -45,7 +44,6 @@ function Form() {
                             required
                             minLength='3'
                         />
-
                     </div>
                     <div className="cold-md-3">
                         <input
@@ -58,7 +56,6 @@ function Form() {
                             required
                             minLength='10'
                         />
-
                     </div>
                     <div className="cold-md-3">
                         <input
@@ -82,30 +79,15 @@ function Form() {
                             value={datos.provincia}
                         />
                     </div>
-                    <p>¿Por dónde prefieres comprar? </p>
-                    <div className="div-cold-md-3">
-                        <select
-                            className="form-control"
-                            name="select"
-                            onChange={InputChange}
-                            value={datos.select}
-                        >
-                            <option value="value0">-</option>
-                            <option value="En la tienda física">En la tienda física</option>
-                            <option value="En la página web">En la página web</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                    </div>
-                    <p>¿Tienes alguna sugerencia? <ion-icon name="arrow-down-outline"></ion-icon>
+                    <p>¿Cuál es tu consulta? <ion-icon name="arrow-down-outline"></ion-icon>
                     </p>
                     <textarea
                         className="form-control"
                         onChange={InputChange}
-                        name='sugerencia'
-                        value={datos.sugerencia}
+                        name='consulta'
+                        value={datos.consulta}
                         required
-                        minLength='10'
-                    >
+                        minLength='10'                    >
                     </textarea>
                     <div className="cold-md-3">
                         <button className="btn btn-enviarform "

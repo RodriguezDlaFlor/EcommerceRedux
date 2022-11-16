@@ -99,7 +99,7 @@ function Account() {
                                     autoComplete="given-name"
                                     name="displayName"
                                     required
-                                    minLenght='3'
+                                    minLength='3'
                                     fullWidth
                                     id="displaytName"
                                     label="First Name"
@@ -141,12 +141,6 @@ function Account() {
                                     autoComplete="new-password"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid>
                         </Grid>

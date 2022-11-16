@@ -41,13 +41,14 @@ function FormPet() {
             text: 'Los datos fueron enviados correctamente. Pronto recibirá un Email con la fecha y horario de su turno (por favor revise su correo). ¡MUCHAS GRACIAS!',
             icon: 'success',
         })
+        localStorage.setItem('dataContact', JSON.stringify(datos))
         setDatos({})
     }
 
     return (
         <Fragment>
             <div className="container mt-5">
-                <div className='conteiner'>
+                <div className='container'>
                     <h1 className='form-contact'>
                         Agenda un turno  <FontAwesomeIcon icon={faDog} />
                     </h1>

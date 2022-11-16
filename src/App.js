@@ -11,38 +11,27 @@ import Header from "./Components/Header";
 import Checkout from "./Components/Checkout/Checkout";
 import Footer from "./Components/Footer";
 import Review from "./Components/Checkout/Review";
+import Search from "./Components/Search";
 
 function App() {
   const { allarticles } = useSelector((state) => state.products);
   const [results, setResults] = useState([]);
   const [filter, setFilter] = useState([]);
   const [sizes, setSizes] = useState([]);
-  const [checkout, setCheckout] = useState([
-    {
-      firstName: "",
-      address: "",
-      lastName: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: "",
-      nameTitular: "",
-      numberCard: "",
-      dateCaducidad: "",
-      cvv: "",
-      email: "",
-      cardtype: "",
-    },
-  ]);
 
   return (
     <>
       <BrowserRouter>
-        <Header setResults={setResults} results={results} sizes={sizes} />
-        <div className="row row-cols-1 row-cols-md-4 g-4 ">
+        <Header
+          setResults={setResults}
+          results={results}
+          filter={filter}
+          setFilter={setFilter}
+        />
+        <div className="row row-cols-1 row-cols-md-5 g-1 m-0 ">
           <Routes>
             <Route exact path="/" element={<Login />} />
-            <Route exact path="/CreateAccount" element={<CreateAccount />} />
+            <Route path="/CreateAccount" element={<CreateAccount />} />
             <Route
               exact
               path="/Products"
@@ -73,16 +62,8 @@ function App() {
             <Route path="/Shopping" element={<Shopping />} />
             <Route path="/Form" element={<Form />} />
             <Route path="/Turnos" element={<FormPet />} />
-            <Route
-              path="/Checkout"
-              element={
-                <Checkout checkout={checkout} setCheckout={setCheckout} />
-              }
-            />
-            <Route
-              path="/Review"
-              element={<Review checkout={checkout} setCheckout={setCheckout} />}
-            />
+            <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/Review" element={<Review />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search";
+import Filter from "./Filter";
 import Shopping from "./Shopping";
 
 
-function Header({ results, setResults, sizes }) {
+function Header({ setFilter, setResults, }) {
   const tokenGet = localStorage.getItem('token')
   const userEmail = localStorage.getItem('userEmail')
   const navigate = useNavigate()
@@ -21,6 +22,9 @@ function Header({ results, setResults, sizes }) {
         <div className='btn-group'>
           {tokenGet ? < button onClick={clearStorage} className="navbar-btn">Cerrar Sesión
           </button> : ''}
+          {!tokenGet ? <Link to='/' className="navbar-brand" >
+            Ingresar
+          </Link> : ''}
           <div className="navbar-brand user" >
             <FontAwesomeIcon icon={faUser} />
             {userEmail}
@@ -34,10 +38,9 @@ function Header({ results, setResults, sizes }) {
           <Link to='/Turnos' className="navbar-brand" >
             Peluqueria
           </Link>
-
-
-
-          <Shopping sizes={sizes} />
+          <Filter setFilter={setFilter} />
+          <Search setResults={setResults} />
+          <Shopping />
         </div>
       </nav>
     </Fragment >

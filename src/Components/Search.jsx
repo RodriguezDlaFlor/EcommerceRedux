@@ -1,5 +1,7 @@
+
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 function Search({ setResults }) {
     const { allarticles } = useSelector(state => state.products)
@@ -14,6 +16,22 @@ function Search({ setResults }) {
             const textShow = allarticles.filter((article) =>
                 article.name.includes(name))
             setResults(textShow)
+            if (textShow.length === 0) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 650,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'err',
+                    title: 'No hay resultados'
+                })
+            }
         } else {
             setResults([])
         }

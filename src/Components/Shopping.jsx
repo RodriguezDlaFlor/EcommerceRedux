@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
-
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Fragment, useState } from "react";
 import "../styles/Product.css";
 import "../styles/Shopping.css";
@@ -14,6 +15,10 @@ function Shopping({ sizes }) {
     const dispach = useDispatch()
     const { cart } = useSelector(state => state.shopping)
 
+    React.useEffect(() => {
+        localStorage.setItem('ItemsCart', JSON.stringify(cart))
+
+    }, [cart]);
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -28,31 +33,25 @@ function Shopping({ sizes }) {
         <Fragment>
 
             <Link type="button" className="navbar-brand link-carrito" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="my-button-id " onClick={handleShow}>
-                Mi Carrito {cart.length ? <small>{amount}</small> : ''}
+                <FontAwesomeIcon icon={faShoppingCart} style={{ color: 'white' }} /> {cart.length ? <small>{amount}</small> : ''}
             </Link>
-
             <Offcanvas show={show} size="lg" onHide={handleClose} backdrop="static"
                 keyboard={true} >
                 <Offcanvas.Header closeButton={handleClose} show={show}>
                     <Offcanvas.Title>
                         <h1 className="modal-title fs-5" id="staticBackdropLabel">Mi Carrito</h1>
                     </Offcanvas.Title>
-
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    {cart.length ? <div className="row  g-12">{cart.map((element, key) =>
-                        <div className="js-cart-item cart-item form-row" id={key}>
-
+                    {cart.length ? <div className="row  g-12">{cart.map((element, idx) =>
+                        <div className="js-cart-item cart-item form-row" key={idx}>
                             <div className="cart-item-name">
                                 <small className="small">{element.name}</small> <small className="small">{element.sizes}</small>
-
                             </div>
                             <div class="col-2 {% if cart_page %}col-md-1{% endif %}">
                                 <img src={require(`../image/${element.image}`)} className="img-fluid" />
                             </div>
-
                             <div className="col-10">
-
                                 <span className="pull-left">
                                     <button type="button" className="js-cart-quantity-btn cart-item-btn btn" id={element.id} onClick={() => dispach(increaseCart(element))}>
                                         +
@@ -60,7 +59,6 @@ function Shopping({ sizes }) {
                                     <span>
                                         {element.amount}
                                     </span>
-
                                     <button type="button" className="js-cart-quantity-btn cart-item-btn btn" id={element.id} onClick={() => dispach(decreaseCart(element))}>
                                         -
                                     </button>
@@ -76,25 +74,18 @@ function Shopping({ sizes }) {
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     )}</div>
                         : <small className="small-cart">  El carrito de compras está vacío. </small>}
-
                     {cart.length ? <div className="row  g-12">
 
                         <h5 className="js-visible-on-cart-filled">
                             <span className="col">
                                 Subtotal
-
                                 <small className="envio"> (sin envío)</small >
-
                             </span >
                             <strong className="js-ajax-cart-total js-cart-subtotal {% if not cart_page %}col{% endif %} text-right">${total},00</strong>
                         </h5 >
-
-
-
                         <Offcanvas.Body>
                             <div className="js-cart-total-container js-visible-on-cart-filled mb-3 display:none">
                                 <h2 className="{% if not cart_page %}row{% else %}text-right{% endif %} text-primary mb-0">
@@ -111,15 +102,11 @@ function Shopping({ sizes }) {
                             </Link>
 
                         </div>
-
-
                         <div className="row mb-2">
                             <div className="text-center w-100">
                                 <a href="/Products" className="js-modal-close btn btn-link">Seguir comprando </a>
                             </div>
                         </div>
-
-
                     </div> : ''} <Button variant="secondary" onClick={handleClose} >
                         Cerrar
                     </Button>
