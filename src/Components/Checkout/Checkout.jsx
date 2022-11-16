@@ -4,7 +4,6 @@ import { finalizeCart } from '../../Slices/SliceShopping';
 import "../Checkout/Checkout.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faEnvelope, faInstitution, faShoppingCart, faAddressCard } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router-dom';
 
 function Checkout() {
     const [checkout, setCheckout] = React.useState([

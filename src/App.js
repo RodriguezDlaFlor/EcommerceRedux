@@ -9,9 +9,6 @@ import Form from "./Components/Form";
 import { useState } from "react";
 import Header from "./Components/Header";
 import Checkout from "./Components/Checkout/Checkout";
-import Footer from "./Components/Footer";
-import Review from "./Components/Checkout/Review";
-import Search from "./Components/Search";
 
 function App() {
   const { allarticles } = useSelector((state) => state.products);
@@ -63,7 +60,6 @@ function App() {
             <Route path="/Form" element={<Form />} />
             <Route path="/Turnos" element={<FormPet />} />
             <Route path="/Checkout" element={<Checkout />} />
-            <Route path="/Review" element={<Review />} />
           </Routes>
         </div>
       </BrowserRouter>

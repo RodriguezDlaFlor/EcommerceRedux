@@ -9,7 +9,6 @@ function Filter({ setFilter }) {
             product.category === e.target.value)
         setFilter(producFiltr)
     }
-
     return (
 
         <select onChange={(e) => filterProducts(e)} className="btn btn-outline boton-filtrar">

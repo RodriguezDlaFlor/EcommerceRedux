@@ -2,8 +2,6 @@ import { Fragment } from "react"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../Slices/SliceShopping"
 import "../styles/Buttons.css";
-import Search from "./Search";
-
 
 function Products({ article, setSizes, sizes }) {
 
@@ -11,7 +9,6 @@ function Products({ article, setSizes, sizes }) {
 
     return (
         <Fragment>
-
             <div className="tarjeta" >
                 <div className="card text-bg-dark mb-3">
                     <div className="card-header text-center">{article.name}</div>
@@ -30,7 +27,6 @@ function Products({ article, setSizes, sizes }) {
                     </div>
                 </div>
             </div>
-
         </Fragment >
     )
 }

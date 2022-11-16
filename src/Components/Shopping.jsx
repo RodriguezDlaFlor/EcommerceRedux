@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { Fragment, useState } from "react";
@@ -49,7 +48,7 @@ function Shopping({ sizes }) {
                                 <small className="small">{element.name}</small> <small className="small">{element.sizes}</small>
                             </div>
                             <div class="col-2 {% if cart_page %}col-md-1{% endif %}">
-                                <img src={require(`../image/${element.image}`)} className="img-fluid" />
+                                <img src={require(`../image/${element.image}`)} className="img-fluid" alt='logo' />
                             </div>
                             <div className="col-10">
                                 <span className="pull-left">
@@ -100,7 +99,6 @@ function Shopping({ sizes }) {
                             <Link variant="secondary" className="btn btn-primary btn-block" type="button" onClick={handleClose} to='/Checkout' >
                                 Comprar
                             </Link>
-
                         </div>
                         <div className="row mb-2">
                             <div className="text-center w-100">
